@@ -19,41 +19,41 @@ export const Config = {
   "getDenyAllOverwrite":(id:string)=> [{id:id,deny:FLAGS.ALL_TEXT}] as Discord.OverwriteResolvable[],
   "Roles": new Map<string,CreateData>([
     [
-      "voter",
+      "Spartiates",
       {
         "data":{
-          "name":"voter",
+          "name":"Spartiates",
           "mention":false
         } as Discord.RoleData,
-        "reason":"Allows voting in the bot-managed polls"
+        "reason":"Voting class. Able to participate in governance."
       }
     ],
     [
-      "poll-manager",
+      "Gerousia",
       {
         "data":{
-          "name":"poll-manager",
+          "name":"Gerousia",
           "mention":false
         } as Discord.RoleData,
-        "reason":"Allows creation and management of polls"
+        "reason":"Council for creating and managing polls."
       }
     ]
   ]),
   "Categories": new Map<string,CreateData>([
     [
-      "polling",
+      "Apella",
       {
-        "name":"polling",
+        "name":"Apella",
         "type":"category",
-        "reason":"Category for organizing channels related to polling"
+        "reason":"Category for organizing all channels related to polling."
       }
     ]
   ]),
   "Channels": new Map<string,CreateData>([
     [
-      "management",
+      "poll-management",
       {
-        "name":"management",
+        "name":"poll-management",
         "type":"text",
         "reason":"Allows for creation/management of polls",
         "topic":"Welcome to the poll-management channel, use `!help` for more information :)",
@@ -62,23 +62,23 @@ export const Config = {
 
           return [
             {id:guild.id,deny:FLAGS.ALL_TEXT},
-            {id:roleStore.get('poll-manager').id,allow:FLAGS.ALL_TEXT},
+            {id:roleStore.get('Gerousia').id,allow:FLAGS.ALL_TEXT},
           ]
         }
       }
     ],
     [
-      "results",
+      "poll-results",
       {
-        "name":"results",
+        "name":"poll-results",
         "type":"text",
-        "topic":"Channel to display the results from our latest polls",
+        "topic":"\nChannel to display polling results polls.  For more information on the name \"Apella\" see https://en.wikipedia.org/wiki/Apella",
         "reason":"Display results from polls",
         "getPermissionOverwrites":(guild, roleStore): Discord.OverwriteResolvable[] =>{
           //let permissions:Discord.OverwriteResolvable[];
           return [
             {id:guild.id,allow:FLAGS.READ_ONLY,deny:FLAGS.ALL_TEXT},
-            {id:roleStore.get('poll-manager').id,allow:FLAGS.ALL_TEXT},
+            {id:roleStore.get('Gerousia').id,allow:FLAGS.ALL_TEXT},
           ]
         }
       }

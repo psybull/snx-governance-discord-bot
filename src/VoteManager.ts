@@ -54,7 +54,7 @@ export class Poll {
 
     this.id = uuidv4().substr(0,8);
 
-    var manageChannel = store.get('channels').get('management') as Discord.TextChannel;
+    var manageChannel = store.get('channels').get('poll-management') as Discord.TextChannel;
 
     manageChannel.send({content:this.getPollText()}).then(message => this.watchedMessages.edit = message)
     manageChannel.send({content:Config.BotText.ManagePollFooterFooter()})
@@ -126,8 +126,8 @@ export class Poll {
     const roles = store.get('roles') as Map<string,Discord.Role>;
     var overwrites = ([
       {id:guild.id,allow:0,deny:FLAGS.ALL_TEXT},
-      {id:roles.get('poll-manager').id,allow:FLAGS.ALL_TEXT},
-      {id:roles.get('voter').id,allow:FLAGS.VOTING,deny:FLAGS.ALL_TEXT}
+      {id:roles.get('Gerousia').id,allow:FLAGS.ALL_TEXT},
+      {id:roles.get('Spartiates').id,allow:FLAGS.VOTING,deny:FLAGS.ALL_TEXT}
     ]);
 
     const votingChannel = await guild.channels.create(this.pollData.title,{
@@ -203,11 +203,11 @@ async function initializeConfig(type:string,iManager:Discord.GuildChannelManager
 async function updatePermissions(){
   for (let [name,channel] of store.get('channels') as Map<string,Discord.GuildChannel>){
     switch(name){
-      case 'results':
-      case 'management':
+      case 'poll-results':
+      case 'poll-management':
         await channel.overwritePermissions(Config.Channels.get(name).getPermissionOverwrites(channel.guild,store.get('roles') as Map<string,Discord.Role>));
         break;
-      case 'polling':
+      case 'Apella':
         //nothing for now
         break;
     }
@@ -234,9 +234,9 @@ export async function init(suppliedClient:Discord.Client){
     await initializeConfig('roles',guild.roles,Config.Roles);
 
     //initialize parent category for poll channel organization - TODO: support multiple Categories
-    let foundCategory = [...guild.channels.cache.values()].find(({name}) => name === 'polling')
+    let foundCategory = [...guild.channels.cache.values()].find(({name}) => name === 'Apella')
     if(!foundCategory){
-      foundCategory = await guild.channels.create('polling',Config.Categories.get('polling') as Discord.GuildCreateChannelOptions)
+      foundCategory = await guild.channels.create('Apella',Config.Categories.get('Apella') as Discord.GuildCreateChannelOptions)
     }
     console.log(foundCategory)
     store.get('channels').set('parent',foundCategory);

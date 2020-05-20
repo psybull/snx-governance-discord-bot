@@ -8,9 +8,9 @@ const client = new Discord.Client();
 
 //not added to the repo, need a json file with a {prefix:string,token:string}
 //the token needs to match the bot you wanna use
-import {prefix,token} from './config.json';
+import {prefix,token} from '../config.json';
 
-server.init();
+//server.init();
 
 
 function checkData(){
