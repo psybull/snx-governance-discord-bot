@@ -124,7 +124,7 @@ async function initializeGuild(guild:Discord.Guild){
   //initialize default polling channels
   await initializeChannels(guild);
 
-  await updateVoterRoles(guild);
+  //await updateVoterRoles(guild);
 
   await updateChannelPermissions(guild);
 }
