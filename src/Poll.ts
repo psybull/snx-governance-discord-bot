@@ -21,7 +21,7 @@ interface PollOption {
   body?:string;
 }
 
-enum PollStatus{create, run, end}
+export enum PollStatus{create, run, end}
 
 export interface ResultsData {
   voteTotalsByOption:Map<PollOption,number>;
@@ -91,6 +91,18 @@ export class Poll {
       this.pollData.body = options.body
     }
     this.updateMessagePreview();
+  }
+
+  delete(){
+    if(this.watchedMessages.preview){
+      this.watchedMessages.preview.delete({reason:'Poll was deleted manually'});
+    }
+    if(this.watchedMessages.results){
+      this.watchedMessages.results.delete({reason:'Poll was deleted manually'});
+    }
+    if(this.votingChannel){
+      this.votingChannel.delete('Poll was deleted manually');
+    }
   }
 
   updateOption(title:string,body?:string){

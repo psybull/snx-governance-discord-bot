@@ -1,6 +1,6 @@
 import * as Discord from 'discord.js';
 import { Config, CreateData, FLAGS} from './config';
-import {Poll} from './Poll'
+import {Poll, PollStatus} from './Poll'
 
 
 let client:Discord.Client = new Discord.Client();
@@ -161,6 +161,30 @@ async function processManagementCommands(suppliedMessage:Discord.Message){
   }else if(command === 'resetall'){
     suppliedMessage.reply('OK - Deleting memory, and re-initializing');
     initializeGuild(suppliedMessage.guild)
+  }else if(command === 'delete'){
+
+    const allPolls = [...guildData.polls.creating,...guildData.polls.running,...guildData.polls.ended]
+
+    let idLookup = allPolls.find((poll)=>{return poll.id===commandSplit[0]})
+    if(idLookup){
+      suppliedMessage.reply('Deleting Poll - '+idLookup.id);
+      idLookup.delete();
+
+      switch(idLookup.status){
+        case PollStatus.create:
+          guildData.polls.creating.splice(guildData.polls.creating.indexOf(idLookup),1);
+          break;
+        case PollStatus.run:
+          guildData.polls.running.splice(guildData.polls.running.indexOf(idLookup),1);
+          break;
+        case PollStatus.end:
+          guildData.polls.ended.splice(guildData.polls.ended.indexOf(idLookup),1);
+          break;
+      }
+    }else{
+      suppliedMessage.reply({content:'Deleting a poll requires valid poll `ID`',timeout:10000});
+
+    }
   }else if(command === 'create'){
     const newPoll = new Poll(client,suppliedMessage.guild.id,guildData)
     guildData.polls.creating.push(newPoll);
