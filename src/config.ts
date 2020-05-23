@@ -16,6 +16,7 @@ export interface CreateData {
 }
 
 export const Config = {
+  "voterAccountAge":2764800000,
   "getDenyAllOverwrite":(id:string)=> [{id:id,deny:FLAGS.ALL_TEXT}] as Discord.OverwriteResolvable[],
   "Roles": new Map<string,CreateData>([
     [
@@ -83,19 +84,5 @@ export const Config = {
         }
       }
     ]
-  ]),
-  "BotText":{
-    "ManagePollFooterFooter":():string=>{
-      let msg = "\n";
-         msg += "----------------------------------------\n";
-         msg += "The above is a preview of your poll based on the data I have now.\n"
-         msg += "To change the Title, use the command `!title My Snazzy New Title`\n"
-         msg += "The Preview above should automatically update with your changes\n"
-         msg += "A full list of commands can be found with the `!help` command\n"
-         msg += "Feel free to delete this message!"
-
-      return msg;
-    }
-      
-  }
+  ])
 };
