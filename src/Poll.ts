@@ -257,9 +257,8 @@ export class Poll {
     await votingChannel.overwritePermissions(overwrites);
     this.guildStore.channels.set(this.id,votingChannel);
     votingChannel.send(this.getPromptText())
-    votingChannel.send("Please vote by entering `!vote :vote-emoji:` corresponding to the options above (you can copy/paste from the options list)")
-    votingChannel.send("You may change your vote by re-entering a command, but you must wait 5 minutes before changing")
-    votingChannel.send("Withdraw your vote with `!withdraw`")
+    votingChannel.send("Please indicate your preference by entering `!vote :vote-emoji:` corresponding to the options above (copy/paste for accuracy)")
+    votingChannel.send("`!withdraw` to cancel your vote")
 
     this.guildStore.channels.get('results');
     

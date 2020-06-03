@@ -157,7 +157,22 @@ async function processManagementCommands(suppliedMessage:Discord.Message){
   const guildData = guildStore.get(suppliedMessage.guild.id)
 
   if(command === 'help'){
-    suppliedMessage.reply('this should be a help message for managers!');
+    let manageHelp = "Here's a crash course on a normal poll lifecycle:\n\n" ;
+    manageHelp += "1. `!create` - create a blank new poll\n" ;
+    manageHelp += "2. Edit the poll data:\n";
+    manageHelp += "\t* `!title Example Poll` - change the title to given title\n";
+    manageHelp += "\t* `!body Do you like this example poll?` - change the body to the given text (supports Discord markdown)\n";
+    manageHelp += "\t* `!option :thumbsup: Yes, I love it!` - add a vote option, :thumbsup:, with the option description as given text (also supports Discord markdown)\n";
+    manageHelp += "\t* `!option :thumbsdown: No, it stinks!` - add another vote option, similar to above\n"
+    manageHelp += "3. `!start` - publish poll and open for voting\n"
+    manageHelp += "4. `!end` - end running poll\n\n"
+
+    manageHelp += "`!delete *poll_id*` - remove poll (id required always)\n"
+    manageHelp += "`!resetall` - clear all Poll memory and re-initialize the bot - only use as last resort (you must delete any temporary voting channels manually)\n\n"
+
+    manageHelp += "The bot will always assume the command is targeting the *oldest created* poll.  If multiple polls are created/running, specify the poll id in the command (e.g. `!Title a6e04e Changing the title for poll a6e04e!!`)\n\n";
+
+    suppliedMessage.author.send(manageHelp)
   }else if(command === 'resetall'){
     suppliedMessage.reply('OK - Deleting memory, and re-initializing');
     initializeGuild(suppliedMessage.guild)
