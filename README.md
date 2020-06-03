@@ -18,7 +18,7 @@ A bot leveraging the Discord API to help scale governance for the Synthetix Comm
 
 # Usage
 
-The bot creates the [Apella](https://en.wikipedia.org/wiki/Spartiate), a category for managing text channels for voting, with 2 initial text channels `#poll-management` and `#poll-results` along with 2 roles, the [Gerousia](https://en.wikipedia.org/wiki/Gerousia) (the governance managers) and the Spartitiates (those with the ability to vote).
+The bot creates the [Apella](https://en.wikipedia.org/wiki/Spartiate), a category for managing text channels for voting, with 2 initial text channels `#poll-management` and `#poll-results` along with 2 roles, the [Gerousia](https://en.wikipedia.org/wiki/Gerousia) (the governance managers) and the [Spartiates](https://en.wikipedia.org/wiki/Spartiate) (those with the ability to vote).
 
 Geroisia will have access to the `#poll-management`, where they have to following user flow:
 
